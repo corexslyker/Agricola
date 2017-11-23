@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista;
+package botones;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -14,25 +14,27 @@ import javax.swing.JButton;
 import static javax.swing.SwingConstants.BOTTOM;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.TOP;
+import vista.Molino;
 
 /**
  *
- * @author Paulo
+ * @author ByPal
  */
-public class BotonAdministracion extends JButton {
+public class BotonMolino extends JButton {
 
-    public BotonAdministracion() {
-        super("Administracion");
+    public BotonMolino() {
+
+        super("Molino");
         this.addActionListener(new Listener());
-
-        this.setContentAreaFilled(false);
+        
+               this.setContentAreaFilled(false);
         this.setVerticalAlignment(TOP);
         this.setHorizontalAlignment(CENTER);
         this.setHorizontalTextPosition(CENTER);
-        this.setVerticalTextPosition(BOTTOM);
-
-        URL urlBackground_image = getClass().getResource("/imágenes/contabilidad.png");
-        ImageIcon icon = new ImageIcon(urlBackground_image);
+        this.setVerticalTextPosition(BOTTOM);        
+        
+        URL urlBackground_image = getClass().getResource("/imágenes/molino.png");
+        ImageIcon icon = new ImageIcon(urlBackground_image);  
         Image img = icon.getImage();
         Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
         icon = new ImageIcon(newimg);
@@ -40,6 +42,7 @@ public class BotonAdministracion extends JButton {
         this.setIcon(icon);
         this.setBorderPainted(false);
         this.setBorder(null);
+ 
 
     }
 
@@ -47,7 +50,8 @@ public class BotonAdministracion extends JButton {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Administracion hd = new Administracion();
+            Molino ml = new Molino();
         }
     }
+
 }

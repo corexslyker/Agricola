@@ -106,7 +106,7 @@ public class Molino extends JFrame {
         Connection con = DriverManager.getConnection(url, "bdi2017t", "bdi2017t");
         con.setSchema("Agricola");
         Statement instruccionSQL = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        ResultSet resultadosConsulta = instruccionSQL.executeQuery("select * from frutales");
+        ResultSet resultadosConsulta = instruccionSQL.executeQuery("select * from molino order by id_molino");
         while (resultadosConsulta.next()) {
             ArrayList aux = new ArrayList();
             aux.add(resultadosConsulta.getString(1));

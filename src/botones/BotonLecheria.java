@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista;
+package botones;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import static javax.swing.SwingConstants.BOTTOM;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.TOP;
+import vista.Lecheria;
 
 /**
  *

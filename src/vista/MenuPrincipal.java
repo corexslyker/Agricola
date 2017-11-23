@@ -5,6 +5,7 @@
  */
 package vista;
 
+import botones.PanelBotones;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;

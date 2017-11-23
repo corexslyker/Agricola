@@ -1,10 +1,11 @@
 
-package vista;
-
+package botones;
 import java.awt.event.*;
 import java.sql.*;
 import java.util.logging.*;
 import javax.swing.*;
+import vista.Login;
+import vista.MenuPrincipal;
 
 public class BotonIngresar extends JButton {
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista;
+package botones;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -14,15 +14,16 @@ import javax.swing.JButton;
 import static javax.swing.SwingConstants.BOTTOM;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.TOP;
+import vista.Administracion;
 
 /**
  *
  * @author Paulo
  */
-public class BotonFrutales extends JButton {
+public class BotonAdministracion extends JButton {
 
-    public BotonFrutales() {
-        super("Frutales");
+    public BotonAdministracion() {
+        super("Administracion");
         this.addActionListener(new Listener());
 
         this.setContentAreaFilled(false);
@@ -31,7 +32,7 @@ public class BotonFrutales extends JButton {
         this.setHorizontalTextPosition(CENTER);
         this.setVerticalTextPosition(BOTTOM);
 
-        URL urlBackground_image = getClass().getResource("/imágenes/frutales.png");
+        URL urlBackground_image = getClass().getResource("/imágenes/contabilidad.png");
         ImageIcon icon = new ImageIcon(urlBackground_image);
         Image img = icon.getImage();
         Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
@@ -47,8 +48,7 @@ public class BotonFrutales extends JButton {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Frutales hd = new Frutales();
+            Administracion hd = new Administracion();
         }
     }
-
 }

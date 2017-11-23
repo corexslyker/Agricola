@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista;
+package botones;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -14,16 +14,16 @@ import javax.swing.JButton;
 import static javax.swing.SwingConstants.BOTTOM;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.TOP;
+import vista.Queseria;
 
 /**
  *
- * @author ByPal
+ * @author Paulo
  */
-public class BotonMolino extends JButton {
+public class BotonQueseria extends JButton {
 
-    public BotonMolino() {
-
-        super("Molino");
+    public BotonQueseria() {
+        super("Quesería");
         this.addActionListener(new Listener());
         
                this.setContentAreaFilled(false);
@@ -32,7 +32,7 @@ public class BotonMolino extends JButton {
         this.setHorizontalTextPosition(CENTER);
         this.setVerticalTextPosition(BOTTOM);        
         
-        URL urlBackground_image = getClass().getResource("/imágenes/molino.png");
+        URL urlBackground_image = getClass().getResource("/imágenes/queseria.png");
         ImageIcon icon = new ImageIcon(urlBackground_image);  
         Image img = icon.getImage();
         Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
@@ -42,14 +42,13 @@ public class BotonMolino extends JButton {
         this.setBorderPainted(false);
         this.setBorder(null);
  
-
     }
 
     private class Listener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Molino ml = new Molino();
+            Queseria hd = new Queseria();
         }
     }
 

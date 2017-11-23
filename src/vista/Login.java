@@ -5,6 +5,7 @@
  */
 package vista;
 
+import botones.BotonIngresar;
 import java.awt.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.*;
@@ -15,9 +16,9 @@ import javax.swing.*;
  */
 public class Login extends JFrame {
 
-    JPanel loginPanel;
-    JTextField userText;
-    JPasswordField passwordText;
+    public JPanel loginPanel;
+    public JTextField userText;
+    public JPasswordField passwordText;
 
     public Login() {
         super("Agrícola Salesiana");

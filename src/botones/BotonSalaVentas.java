@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista;
+package botones;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -14,25 +14,25 @@ import javax.swing.JButton;
 import static javax.swing.SwingConstants.BOTTOM;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.TOP;
+import vista.Queseria;
 
 /**
  *
  * @author Paulo
  */
-public class BotonPorcinos extends JButton {
+public class BotonSalaVentas extends JButton {
 
-    public BotonPorcinos() {
-        super("Porcinos");
+    public BotonSalaVentas() {
+        super("Sala de Ventas");
         this.addActionListener(new Listener());
-        
-               this.setContentAreaFilled(false);
+        this.setContentAreaFilled(false);
         this.setVerticalAlignment(TOP);
         this.setHorizontalAlignment(CENTER);
         this.setHorizontalTextPosition(CENTER);
-        this.setVerticalTextPosition(BOTTOM);        
-        
-        URL urlBackground_image = getClass().getResource("/imágenes/porcinos.png");
-        ImageIcon icon = new ImageIcon(urlBackground_image);  
+        this.setVerticalTextPosition(BOTTOM);
+
+        URL urlBackground_image = getClass().getResource("/imágenes/ventas.png");
+        ImageIcon icon = new ImageIcon(urlBackground_image);
         Image img = icon.getImage();
         Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
         icon = new ImageIcon(newimg);
@@ -40,14 +40,15 @@ public class BotonPorcinos extends JButton {
         this.setIcon(icon);
         this.setBorderPainted(false);
         this.setBorder(null);
- 
+
     }
 
     private class Listener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Porcinos hd = new Porcinos();
+            Queseria hd = new Queseria();
         }
     }
+
 }

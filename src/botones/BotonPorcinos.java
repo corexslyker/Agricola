@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista;
+package botones;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -14,24 +14,25 @@ import javax.swing.JButton;
 import static javax.swing.SwingConstants.BOTTOM;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.TOP;
+import vista.Porcinos;
 
 /**
  *
  * @author Paulo
  */
-public class BotonCampo  extends JButton {
+public class BotonPorcinos extends JButton {
 
-    public BotonCampo() {
-        super("Campo");
+    public BotonPorcinos() {
+        super("Porcinos");
         this.addActionListener(new Listener());
-
-       this.setContentAreaFilled(false);
+        
+               this.setContentAreaFilled(false);
         this.setVerticalAlignment(TOP);
         this.setHorizontalAlignment(CENTER);
         this.setHorizontalTextPosition(CENTER);
         this.setVerticalTextPosition(BOTTOM);        
         
-        URL urlBackground_image = getClass().getResource("/imágenes/campo.png");
+        URL urlBackground_image = getClass().getResource("/imágenes/porcinos.png");
         ImageIcon icon = new ImageIcon(urlBackground_image);  
         Image img = icon.getImage();
         Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
@@ -47,8 +48,7 @@ public class BotonCampo  extends JButton {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Campo hd = new Campo();
+            Porcinos hd = new Porcinos();
         }
     }
-    
 }

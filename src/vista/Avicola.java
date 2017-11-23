@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 public class Avicola extends JFrame {
 
     ArrayList<ArrayList<Object>> inventario;
+    DefaultTableModel tablaAvicola;
 
     public Avicola() {
         super("Avícola");
@@ -38,6 +39,13 @@ public class Avicola extends JFrame {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = this.getSize();
         this.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
+
+        JTable table = new JTable(new DefaultTableModel());
+        tablaAvicola = (DefaultTableModel) table.getModel();
+        tablaAvicola.addColumn("ID Avícola");
+        tablaAvicola.addColumn("Cantidad Gallinas");
+        tablaAvicola.addColumn("Cantidad de Huevos");
+        JScrollPane tablePane = new JScrollPane(table);
 
         JMenuBar mb = new JMenuBar();
         JMenu inicio = new JMenu("Inicio");
@@ -52,7 +60,7 @@ public class Avicola extends JFrame {
         JMenuItem Consulta2 = new JMenuItem("Consulta 2");
         JMenuItem Consulta3 = new JMenuItem("Consulta 3");
 
-        JMenuItem Solicitud1 = new JMenuItem("Solicitar alimento gallinas");
+        SolicitarAlimentoGallina Solicitud1 = new SolicitarAlimentoGallina(this, tablePane);
 
         mb.add(inicio);
         mb.add(consultas);
@@ -68,18 +76,7 @@ public class Avicola extends JFrame {
 
         solicitudes.add(Solicitud1);
 
-        JTable table = new JTable(new DefaultTableModel());
-        DefaultTableModel tablaAvicola = (DefaultTableModel) table.getModel();
-        tablaAvicola.addColumn("ID Avícola");
-        tablaAvicola.addColumn("Cantidad Gallinas");
-        tablaAvicola.addColumn("Cantidad de Huevos");
-        JScrollPane tablePane = new JScrollPane(table);
-
-        try {
-            this.initInventario();
-        } catch (SQLException ex) {
-            Logger.getLogger(Avicola.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.initInventario();
         for (int i = 0; i < inventario.size(); i++) {
             tablaAvicola.addRow(new Object[]{inventario.get(i).get(0), inventario.get(i).get(1), inventario.get(i).get(2)});
         }
@@ -89,20 +86,31 @@ public class Avicola extends JFrame {
         this.setVisible(true);
     }
 
-    public void initInventario() throws SQLException {
-        inventario = new ArrayList();
-        String url = "jdbc:postgresql://plop.inf.udec.cl:5432/bdi2017t";
-        Connection con = DriverManager.getConnection(url, "bdi2017t", "bdi2017t");
-        con.setSchema("Agricola");
-        Statement instruccionSQL = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        ResultSet resultadosConsulta = instruccionSQL.executeQuery("select * from avicola");
-        while (resultadosConsulta.next()) {
-            ArrayList aux = new ArrayList();
-            aux.add(resultadosConsulta.getString(1));
-            aux.add(resultadosConsulta.getString(2));
-            aux.add(resultadosConsulta.getString(3));
-            inventario.add(aux);
+    public void rellenarTabla() {
+        this.initInventario();
+        for (int i = 0; i < inventario.size(); i++) {
+            tablaAvicola.addRow(new Object[]{inventario.get(i).get(0), inventario.get(i).get(1), inventario.get(i).get(2)});
         }
-        con.close();
+    }
+
+    public void initInventario() {
+        try {
+            inventario = new ArrayList();
+            String url = "jdbc:postgresql://plop.inf.udec.cl:5432/bdi2017t";
+            Connection con = DriverManager.getConnection(url, "bdi2017t", "bdi2017t");
+            con.setSchema("Agricola");
+            Statement instruccionSQL = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet resultadosConsulta = instruccionSQL.executeQuery("select * from avicola");
+            while (resultadosConsulta.next()) {
+                ArrayList aux = new ArrayList();
+                aux.add(resultadosConsulta.getString(1));
+                aux.add(resultadosConsulta.getString(2));
+                aux.add(resultadosConsulta.getString(3));
+                inventario.add(aux);
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Avicola.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista;
+package botones;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -14,26 +14,26 @@ import javax.swing.JButton;
 import static javax.swing.SwingConstants.BOTTOM;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.TOP;
+import vista.Campo;
 
 /**
  *
- * @author ByPal
+ * @author Paulo
  */
-public class BotonBodegaVino extends JButton {
+public class BotonCampo  extends JButton {
 
-    public BotonBodegaVino() {
-        super("Bodega de Vino");
-
+    public BotonCampo() {
+        super("Campo");
         this.addActionListener(new Listener());
 
-        this.setContentAreaFilled(false);
+       this.setContentAreaFilled(false);
         this.setVerticalAlignment(TOP);
         this.setHorizontalAlignment(CENTER);
         this.setHorizontalTextPosition(CENTER);
-        this.setVerticalTextPosition(BOTTOM);
-
-        URL urlBackground_image = getClass().getResource("/imágenes/vino.png");
-        ImageIcon icon = new ImageIcon(urlBackground_image);
+        this.setVerticalTextPosition(BOTTOM);        
+        
+        URL urlBackground_image = getClass().getResource("/imágenes/campo.png");
+        ImageIcon icon = new ImageIcon(urlBackground_image);  
         Image img = icon.getImage();
         Image newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
         icon = new ImageIcon(newimg);
@@ -41,13 +41,15 @@ public class BotonBodegaVino extends JButton {
         this.setIcon(icon);
         this.setBorderPainted(false);
         this.setBorder(null);
+ 
     }
 
     private class Listener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            BodegaVino hd = new BodegaVino();
+            Campo hd = new Campo();
         }
     }
+    
 }
