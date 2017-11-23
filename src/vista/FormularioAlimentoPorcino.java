@@ -31,10 +31,10 @@ public class FormularioAlimentoPorcino {
     JTextField jt1, jt2, jt3, jt4;
     JButton jb1, jb2;
     JFrame jf = new JFrame("Formulario de solicitud");
-    Avicola _avicola;
+    Porcinos _avicola;
     JScrollPane _pane;
 
-    public FormularioAlimentoPorcino(Avicola avicola, JScrollPane pane) {
+    public FormularioAlimentoPorcino(Porcinos avicola, JScrollPane pane) {
         _avicola = avicola;
         _pane = pane;
         jf.setResizable(true);
@@ -105,7 +105,7 @@ public class FormularioAlimentoPorcino {
                 Connection con = DriverManager.getConnection(url, "bdi2017t", "bdi2017t");
                 con.setSchema("Agricola");
                 Statement instruccionSQL = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                ResultSet resultadosConsulta = instruccionSQL.executeQuery("select * from alimenta_g where id_molinog ='" + ID2 + "' and id_avicolag = '" + ID1 + "'");
+                ResultSet resultadosConsulta = instruccionSQL.executeQuery("select * from alimenta_p where id_molinop ='" + ID2 + "' and id_cporcinosp = '" + ID1 + "'");
                 con.close();
                 return resultadosConsulta.first();
 
@@ -121,7 +121,7 @@ public class FormularioAlimentoPorcino {
                 Connection con = DriverManager.getConnection(url, "bdi2017t", "bdi2017t");
                 con.setSchema("Agricola");
                 Statement instruccionSQL = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                ResultSet resultadosConsulta = instruccionSQL.executeQuery("INSERT INTO alimenta_g VALUES(" + ID2 + "," + ID1 + "," + cantidad + ")");
+                ResultSet resultadosConsulta = instruccionSQL.executeQuery("INSERT INTO alimenta_p VALUES(" + ID2 + "," + ID1 + "," + cantidad + ")");
                 con.close();
             } catch (SQLException ex) {
                 Logger.getLogger(FormularioAlimentoPorcino.class.getName()).log(Level.SEVERE, null, ex);
@@ -134,7 +134,7 @@ public class FormularioAlimentoPorcino {
                 Connection con = DriverManager.getConnection(url, "bdi2017t", "bdi2017t");
                 con.setSchema("Agricola");
                 Statement instruccionSQL = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                instruccionSQL.executeUpdate("UPDATE alimenta_g SET cantidad = cantidad + " + cantidad + "  where id_molinog ='" + ID2 + "' and id_avicolag = '" + ID1 + "'");
+                instruccionSQL.executeUpdate("UPDATE alimenta_p SET cantidad = cantidad + " + cantidad + "  where id_molinop ='" + ID2 + "' and id_cporcinosp = '" + ID1 + "'");
 
                 con.close();
             } catch (SQLException ex) {

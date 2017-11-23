@@ -92,6 +92,7 @@ public class Molino extends JFrame {
         this.rellenarTabla();
         this.add(tablePane, BorderLayout.CENTER);
         JButton jb = new JButton("Actualizar");
+        jb.addActionListener(new Listener());
         this.add(jb, BorderLayout.SOUTH);
 
         this.setJMenuBar(mb);
@@ -128,4 +129,15 @@ public class Molino extends JFrame {
 
     }
 
+    private class Listener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            while (tablaAvicola.getRowCount() > 0) {
+                tablaAvicola.removeRow(0);
+            }
+            initInventario();
+            rellenarTabla();
+        }
+    }
 }

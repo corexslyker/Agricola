@@ -8,6 +8,8 @@ package vista;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -16,6 +18,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -31,6 +34,7 @@ import javax.swing.table.DefaultTableModel;
 public class Lecheria extends JFrame {
 
     ArrayList<ArrayList<Object>> inventario;
+    DefaultTableModel tablaAvicola;
 
     public Lecheria() {
         super("Lechería");
@@ -77,44 +81,64 @@ public class Lecheria extends JFrame {
         solicitudes.add(Solicitud3);
 
         JTable table = new JTable(new DefaultTableModel());
-        DefaultTableModel tablaAvicola = (DefaultTableModel) table.getModel();
+        tablaAvicola = (DefaultTableModel) table.getModel();
         tablaAvicola.addColumn("ID Lechería");
         tablaAvicola.addColumn("Litros de leche");
         tablaAvicola.addColumn("Vacas lactantes");
         tablaAvicola.addColumn("Vacas no lactantes");
         JScrollPane tablePane = new JScrollPane(table);
 
-        try {
-            this.initInventario();
-        } catch (SQLException ex) {
-            Logger.getLogger(Avicola.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for (int i = 0; i < inventario.size(); i++) {
-            tablaAvicola.addRow(new Object[]{inventario.get(i).get(0), inventario.get(i).get(1), inventario.get(i).get(2), inventario.get(i).get(3)});
-        }
+        this.initInventario();
+        this.rellenarTabla();
+        this.add(tablePane, BorderLayout.CENTER);
+        JButton jb = new JButton("Actualizar");
+        jb.addActionListener(new Listener());
+        this.add(jb, BorderLayout.SOUTH);
 
-        this.add(tablePane);
         this.setJMenuBar(mb);
 
         this.setVisible(true);
     }
 
-    public void initInventario() throws SQLException {
-        inventario = new ArrayList();
-        String url = "jdbc:postgresql://plop.inf.udec.cl:5432/bdi2017t";
-        Connection con = DriverManager.getConnection(url, "bdi2017t", "bdi2017t");
-        con.setSchema("Agricola");
-        Statement instruccionSQL = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        ResultSet resultadosConsulta = instruccionSQL.executeQuery("select * from lecheria order by id_lecheria");
-        while (resultadosConsulta.next()) {
-            ArrayList aux = new ArrayList();
-            aux.add(resultadosConsulta.getString(1));
-            aux.add(resultadosConsulta.getString(2));
-            aux.add(resultadosConsulta.getString(3));
-            aux.add(resultadosConsulta.getString(4));
-            inventario.add(aux);
+    private class Listener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            while (tablaAvicola.getRowCount() > 0) {
+                tablaAvicola.removeRow(0);
+            }
+            initInventario();
+            rellenarTabla();
         }
-        con.close();
+    }
+
+    public void rellenarTabla() {
+        this.initInventario();
+        for (int i = 0; i < inventario.size(); i++) {
+            tablaAvicola.addRow(new Object[]{inventario.get(i).get(0), inventario.get(i).get(1), inventario.get(i).get(2), inventario.get(i).get(3)});
+        }
+    }
+
+    public void initInventario() {
+        try {
+            inventario = new ArrayList();
+            String url = "jdbc:postgresql://plop.inf.udec.cl:5432/bdi2017t";
+            Connection con = DriverManager.getConnection(url, "bdi2017t", "bdi2017t");
+            con.setSchema("Agricola");
+            Statement instruccionSQL = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet resultadosConsulta = instruccionSQL.executeQuery("select * from lecheria order by id_lecheria");
+            while (resultadosConsulta.next()) {
+                ArrayList aux = new ArrayList();
+                aux.add(resultadosConsulta.getString(1));
+                aux.add(resultadosConsulta.getString(2));
+                aux.add(resultadosConsulta.getString(3));
+                aux.add(resultadosConsulta.getString(4));
+                inventario.add(aux);
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Lecheria.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 }

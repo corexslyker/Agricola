@@ -8,6 +8,8 @@ package vista;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -33,7 +35,7 @@ public class Avicola extends JFrame {
         this.setSize(640, 480);
         this.setResizable(true);
         this.setLayout(new BorderLayout());
-        
+
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = this.getSize();
         this.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
@@ -76,10 +78,25 @@ public class Avicola extends JFrame {
 
         this.initInventario();
         this.rellenarTabla();
-        
-        this.add(tablePane);
+        this.add(tablePane, BorderLayout.CENTER);
+        JButton jb = new JButton("Actualizar");
+        jb.addActionListener(new Listener());
+        this.add(jb, BorderLayout.SOUTH);
+
         this.setJMenuBar(mb);
         this.setVisible(true);
+    }
+
+    private class Listener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            while (tablaAvicola.getRowCount() > 0) {
+                tablaAvicola.removeRow(0);
+            }
+            initInventario();
+            rellenarTabla();
+        }
     }
 
     public void rellenarTabla() {

@@ -6,6 +6,8 @@
 package vista;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Level;
@@ -20,6 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class BodegaVino extends JFrame {
 
     ArrayList<ArrayList<Object>> inventario;
+    DefaultTableModel tablaAvicola;
 
     public BodegaVino() {
         super("Bodega de Vino");
@@ -33,21 +36,12 @@ public class BodegaVino extends JFrame {
         this.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
 
         JTable table = new JTable(new DefaultTableModel());
-        DefaultTableModel tablaAvicola = (DefaultTableModel) table.getModel();
+        tablaAvicola = (DefaultTableModel) table.getModel();
         tablaAvicola.addColumn("ID Bodega");
         tablaAvicola.addColumn("Año");
         tablaAvicola.addColumn("Tipo de vino");
         tablaAvicola.addColumn("Cantidad en litros");
         JScrollPane tablePane = new JScrollPane(table);
-
-        try {
-            this.initInventario();
-        } catch (SQLException ex) {
-            Logger.getLogger(Avicola.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for (int i = 0; i < inventario.size(); i++) {
-            tablaAvicola.addRow(new Object[]{inventario.get(i).get(0), inventario.get(i).get(1), inventario.get(i).get(2), inventario.get(i).get(3)});
-        }
 
         JMenuBar mb = new JMenuBar();
         JMenu inicio = new JMenu("Inicio");
@@ -78,26 +72,56 @@ public class BodegaVino extends JFrame {
 
         solicitudes.add(Solicitud1);
 
-        this.add(tablePane);
+        this.initInventario();
+        this.rellenarTabla();
+        this.add(tablePane, BorderLayout.CENTER);
+        JButton jb = new JButton("Actualizar");
+        jb.addActionListener(new Listener());
+        this.add(jb, BorderLayout.SOUTH);
+
         this.setJMenuBar(mb);
         this.setVisible(true);
     }
 
-    public void initInventario() throws SQLException {
-        inventario = new ArrayList();
-        String url = "jdbc:postgresql://plop.inf.udec.cl:5432/bdi2017t";
-        Connection con = DriverManager.getConnection(url, "bdi2017t", "bdi2017t");
-        con.setSchema("Agricola");
-        Statement instruccionSQL = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        ResultSet resultadosConsulta = instruccionSQL.executeQuery("select * from bodega_vino order by id_bodega");
-        while (resultadosConsulta.next()) {
-            ArrayList aux = new ArrayList();
-            aux.add(resultadosConsulta.getString(1));
-            aux.add(resultadosConsulta.getString(2));
-            aux.add(resultadosConsulta.getString(3));
-            aux.add(resultadosConsulta.getString(4));
-            inventario.add(aux);
+    public void rellenarTabla() {
+        this.initInventario();
+        for (int i = 0; i < inventario.size(); i++) {
+            tablaAvicola.addRow(new Object[]{inventario.get(i).get(0), inventario.get(i).get(1), inventario.get(i).get(2), inventario.get(i).get(3)});
         }
-        con.close();
     }
+
+    private class Listener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            while (tablaAvicola.getRowCount() > 0) {
+                tablaAvicola.removeRow(0);
+            }
+            initInventario();
+            rellenarTabla();
+        }
+    }
+
+    public void initInventario() {
+        try {
+            inventario = new ArrayList();
+            String url = "jdbc:postgresql://plop.inf.udec.cl:5432/bdi2017t";
+            Connection con = DriverManager.getConnection(url, "bdi2017t", "bdi2017t");
+            con.setSchema("Agricola");
+            Statement instruccionSQL = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet resultadosConsulta = instruccionSQL.executeQuery("select * from bodega_vino order by id_bodega");
+            while (resultadosConsulta.next()) {
+                ArrayList aux = new ArrayList();
+                aux.add(resultadosConsulta.getString(1));
+                aux.add(resultadosConsulta.getString(2));
+                aux.add(resultadosConsulta.getString(3));
+                aux.add(resultadosConsulta.getString(4));
+                inventario.add(aux);
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(BodegaVino.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }
