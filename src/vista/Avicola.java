@@ -30,12 +30,10 @@ public class Avicola extends JFrame {
 
     public Avicola() {
         super("Avícola");
-        this.setSize(900, 480);
-        this.setMinimumSize(new Dimension(900, 480));
-
+        this.setSize(640, 480);
         this.setResizable(true);
         this.setLayout(new BorderLayout());
-
+        
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = this.getSize();
         this.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
@@ -77,10 +75,8 @@ public class Avicola extends JFrame {
         solicitudes.add(Solicitud1);
 
         this.initInventario();
-        for (int i = 0; i < inventario.size(); i++) {
-            tablaAvicola.addRow(new Object[]{inventario.get(i).get(0), inventario.get(i).get(1), inventario.get(i).get(2)});
-        }
-
+        this.rellenarTabla();
+        
         this.add(tablePane);
         this.setJMenuBar(mb);
         this.setVisible(true);
@@ -100,7 +96,7 @@ public class Avicola extends JFrame {
             Connection con = DriverManager.getConnection(url, "bdi2017t", "bdi2017t");
             con.setSchema("Agricola");
             Statement instruccionSQL = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet resultadosConsulta = instruccionSQL.executeQuery("select * from avicola");
+            ResultSet resultadosConsulta = instruccionSQL.executeQuery("select * from avicola order by id_avicola");
             while (resultadosConsulta.next()) {
                 ArrayList aux = new ArrayList();
                 aux.add(resultadosConsulta.getString(1));

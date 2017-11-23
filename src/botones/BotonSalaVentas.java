@@ -15,6 +15,7 @@ import static javax.swing.SwingConstants.BOTTOM;
 import static javax.swing.SwingConstants.CENTER;
 import static javax.swing.SwingConstants.TOP;
 import vista.Queseria;
+import vista.SalaVentas;
 
 /**
  *
@@ -47,7 +48,7 @@ public class BotonSalaVentas extends JButton {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Queseria hd = new Queseria();
+            SalaVentas hd = new SalaVentas();
         }
     }
 

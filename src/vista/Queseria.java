@@ -34,8 +34,7 @@ public class Queseria extends JFrame {
 
     public Queseria() {
         super("Quesería");
-        this.setSize(900, 480);
-        this.setMinimumSize(new Dimension(900, 480));
+        this.setSize(640, 480);
 
         this.setResizable(true);
         this.setLayout(new BorderLayout());
@@ -106,7 +105,7 @@ public class Queseria extends JFrame {
         Connection con = DriverManager.getConnection(url, "bdi2017t", "bdi2017t");
         con.setSchema("Agricola");
         Statement instruccionSQL = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        ResultSet resultadosConsulta = instruccionSQL.executeQuery("select * from queseria");
+        ResultSet resultadosConsulta = instruccionSQL.executeQuery("select * from queseria order by id_queseria");
         while (resultadosConsulta.next()) {
             ArrayList aux = new ArrayList();
             aux.add(resultadosConsulta.getString(1));

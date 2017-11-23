@@ -24,17 +24,17 @@ import javax.swing.*;
  *
  * @author pauol
  */
-public class FormularioAlimentoGallina {
+public class FormularioUvas {
 
     JButton bt1;
     JLabel jl1, jl2, jl3, jl4;
     JTextField jt1, jt2, jt3, jt4;
     JButton jb1, jb2;
     JFrame jf = new JFrame("Formulario de solicitud");
-    Avicola _avicola;
+    BodegaVino _avicola;
     JScrollPane _pane;
 
-    public FormularioAlimentoGallina(Avicola avicola, JScrollPane pane) {
+    public FormularioUvas(BodegaVino avicola, JScrollPane pane) {
         _avicola = avicola;
         _pane = pane;
         jf.setResizable(true);
@@ -94,8 +94,6 @@ public class FormularioAlimentoGallina {
                 this.updateSolicitud();
             }
 
-            //_avicola.initInventario();
-            //_avicola.rellenarTabla();
             _pane.repaint();
             jf.setVisible(false);
 
@@ -112,7 +110,7 @@ public class FormularioAlimentoGallina {
                 return resultadosConsulta.first();
 
             } catch (SQLException ex) {
-                Logger.getLogger(FormularioAlimentoGallina.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormularioUvas.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
             }
         }
@@ -123,10 +121,10 @@ public class FormularioAlimentoGallina {
                 Connection con = DriverManager.getConnection(url, "bdi2017t", "bdi2017t");
                 con.setSchema("Agricola");
                 Statement instruccionSQL = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                instruccionSQL.execute("INSERT INTO alimenta_g VALUES(" + ID2 + "," + ID1 + "," + cantidad + ")");
+                ResultSet resultadosConsulta = instruccionSQL.executeQuery("INSERT INTO alimenta_g VALUES(" + ID2 + "," + ID1 + "," + cantidad + ")");
                 con.close();
             } catch (SQLException ex) {
-                Logger.getLogger(FormularioAlimentoGallina.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormularioUvas.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -140,7 +138,7 @@ public class FormularioAlimentoGallina {
 
                 con.close();
             } catch (SQLException ex) {
-                Logger.getLogger(FormularioAlimentoGallina.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormularioUvas.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

@@ -13,13 +13,13 @@ import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 
-public class SolicitarAlimentoGallina extends JMenuItem {
+public class SolicitarUvas extends JMenuItem {
 
-    Avicola _frame;
+    BodegaVino _frame;
     JScrollPane _pane;
 
-    public SolicitarAlimentoGallina(Avicola frame, JScrollPane pane) {
-        super("Solicitar alimento de gallinas");
+    public SolicitarUvas(BodegaVino frame, JScrollPane pane) {
+        super("Solicitar uvas");
         _frame = frame;
         _pane = pane;
         this.addActionListener(new Listener());
@@ -29,7 +29,7 @@ public class SolicitarAlimentoGallina extends JMenuItem {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            FormularioAlimentoGallina fs = new FormularioAlimentoGallina(_frame, _pane);
+            FormularioUvas fs = new FormularioUvas(_frame, _pane);
             this.listar();
         }
 

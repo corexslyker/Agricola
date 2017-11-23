@@ -23,8 +23,7 @@ public class BodegaVino extends JFrame {
 
     public BodegaVino() {
         super("Bodega de Vino");
-        this.setSize(900, 480);
-        this.setMinimumSize(new Dimension(900, 480));
+        this.setSize(640, 480);
 
         this.setResizable(true);
         this.setLayout(new BorderLayout());
@@ -32,39 +31,6 @@ public class BodegaVino extends JFrame {
         Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
         Dimension ventana = this.getSize();
         this.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
-
-        JMenuBar mb = new JMenuBar();
-        JMenu inicio = new JMenu("Inicio");
-        JMenu consultas = new JMenu("Consultas");
-        JMenu solicitudes = new JMenu("Solicitudes");
-
-        JMenuItem Inicio1 = new JMenu("Inicio 1");
-        JMenuItem Inicio2 = new JMenu("Inicio 2");
-        JMenuItem Inicio3 = new JMenu("Inicio 3");
-
-        JMenuItem Consulta1 = new JMenuItem("Consulta 1");
-        JMenuItem Consulta2 = new JMenuItem("Consulta 2");
-        JMenuItem Consulta3 = new JMenuItem("Consulta 3");
-
-        JMenuItem Solicitud1 = new JMenuItem("Solicitud 1");
-        JMenuItem Solicitud2 = new JMenuItem("Solicitud 2");
-        JMenuItem Solicitud3 = new JMenuItem("Solicitud 3");
-
-        mb.add(inicio);
-        mb.add(consultas);
-        mb.add(solicitudes);
-
-        inicio.add(Inicio1);
-        inicio.add(Inicio2);
-        inicio.add(Inicio3);
-
-        consultas.add(Consulta1);
-        consultas.add(Consulta2);
-        consultas.add(Consulta3);
-
-        solicitudes.add(Solicitud1);
-        solicitudes.add(Solicitud2);
-        solicitudes.add(Solicitud3);
 
         JTable table = new JTable(new DefaultTableModel());
         DefaultTableModel tablaAvicola = (DefaultTableModel) table.getModel();
@@ -83,6 +49,35 @@ public class BodegaVino extends JFrame {
             tablaAvicola.addRow(new Object[]{inventario.get(i).get(0), inventario.get(i).get(1), inventario.get(i).get(2), inventario.get(i).get(3)});
         }
 
+        JMenuBar mb = new JMenuBar();
+        JMenu inicio = new JMenu("Inicio");
+        JMenu consultas = new JMenu("Consultas");
+        JMenu solicitudes = new JMenu("Solicitudes");
+
+        JMenuItem Inicio1 = new JMenu("Inicio 1");
+        JMenuItem Inicio2 = new JMenu("Inicio 2");
+        JMenuItem Inicio3 = new JMenu("Inicio 3");
+
+        JMenuItem Consulta1 = new JMenuItem("Consulta 1");
+        JMenuItem Consulta2 = new JMenuItem("Consulta 2");
+        JMenuItem Consulta3 = new JMenuItem("Consulta 3");
+
+        SolicitarUvas Solicitud1 = new SolicitarUvas(this, tablePane);
+
+        mb.add(inicio);
+        mb.add(consultas);
+        mb.add(solicitudes);
+
+        inicio.add(Inicio1);
+        inicio.add(Inicio2);
+        inicio.add(Inicio3);
+
+        consultas.add(Consulta1);
+        consultas.add(Consulta2);
+        consultas.add(Consulta3);
+
+        solicitudes.add(Solicitud1);
+
         this.add(tablePane);
         this.setJMenuBar(mb);
         this.setVisible(true);
@@ -94,7 +89,7 @@ public class BodegaVino extends JFrame {
         Connection con = DriverManager.getConnection(url, "bdi2017t", "bdi2017t");
         con.setSchema("Agricola");
         Statement instruccionSQL = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-        ResultSet resultadosConsulta = instruccionSQL.executeQuery("select * from bodega_vino");
+        ResultSet resultadosConsulta = instruccionSQL.executeQuery("select * from bodega_vino order by id_bodega");
         while (resultadosConsulta.next()) {
             ArrayList aux = new ArrayList();
             aux.add(resultadosConsulta.getString(1));

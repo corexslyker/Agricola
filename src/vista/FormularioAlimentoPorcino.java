@@ -24,7 +24,7 @@ import javax.swing.*;
  *
  * @author pauol
  */
-public class FormularioAlimentoGallina {
+public class FormularioAlimentoPorcino {
 
     JButton bt1;
     JLabel jl1, jl2, jl3, jl4;
@@ -34,7 +34,7 @@ public class FormularioAlimentoGallina {
     Avicola _avicola;
     JScrollPane _pane;
 
-    public FormularioAlimentoGallina(Avicola avicola, JScrollPane pane) {
+    public FormularioAlimentoPorcino(Avicola avicola, JScrollPane pane) {
         _avicola = avicola;
         _pane = pane;
         jf.setResizable(true);
@@ -94,8 +94,6 @@ public class FormularioAlimentoGallina {
                 this.updateSolicitud();
             }
 
-            //_avicola.initInventario();
-            //_avicola.rellenarTabla();
             _pane.repaint();
             jf.setVisible(false);
 
@@ -112,7 +110,7 @@ public class FormularioAlimentoGallina {
                 return resultadosConsulta.first();
 
             } catch (SQLException ex) {
-                Logger.getLogger(FormularioAlimentoGallina.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormularioAlimentoPorcino.class.getName()).log(Level.SEVERE, null, ex);
                 return false;
             }
         }
@@ -123,10 +121,10 @@ public class FormularioAlimentoGallina {
                 Connection con = DriverManager.getConnection(url, "bdi2017t", "bdi2017t");
                 con.setSchema("Agricola");
                 Statement instruccionSQL = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                instruccionSQL.execute("INSERT INTO alimenta_g VALUES(" + ID2 + "," + ID1 + "," + cantidad + ")");
+                ResultSet resultadosConsulta = instruccionSQL.executeQuery("INSERT INTO alimenta_g VALUES(" + ID2 + "," + ID1 + "," + cantidad + ")");
                 con.close();
             } catch (SQLException ex) {
-                Logger.getLogger(FormularioAlimentoGallina.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormularioAlimentoPorcino.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
@@ -140,7 +138,7 @@ public class FormularioAlimentoGallina {
 
                 con.close();
             } catch (SQLException ex) {
-                Logger.getLogger(FormularioAlimentoGallina.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormularioAlimentoPorcino.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
