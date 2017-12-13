@@ -7,6 +7,7 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -86,9 +88,16 @@ public class Porcinos extends JFrame {
         this.initInventario();
         this.rellenarTabla();
         this.add(tablePane, BorderLayout.CENTER);
+
+        JPanel pn = new JPanel();
+        pn.setLayout(new GridLayout(1, 2));
         JButton jb = new JButton("Actualizar");
         jb.addActionListener(new Listener());
-        this.add(jb, BorderLayout.SOUTH);
+        BotonActualizarPorcinos jb2 = new BotonActualizarPorcinos(this, tablePane);
+        jb.addActionListener(new Listener());
+        pn.add(jb);
+        pn.add(jb2);
+        this.add(pn, BorderLayout.SOUTH);
 
         this.setJMenuBar(mb);
 

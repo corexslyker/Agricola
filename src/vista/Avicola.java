@@ -7,6 +7,7 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -79,9 +80,16 @@ public class Avicola extends JFrame {
         this.initInventario();
         this.rellenarTabla();
         this.add(tablePane, BorderLayout.CENTER);
+
+        JPanel pn = new JPanel();
+        pn.setLayout(new GridLayout(1, 2));
         JButton jb = new JButton("Actualizar");
         jb.addActionListener(new Listener());
-        this.add(jb, BorderLayout.SOUTH);
+        BotonActualizarAvicola jb2 = new BotonActualizarAvicola(this, tablePane);
+        jb.addActionListener(new Listener());
+        pn.add(jb);
+        pn.add(jb2);
+        this.add(pn, BorderLayout.SOUTH);
 
         this.setJMenuBar(mb);
         this.setVisible(true);
